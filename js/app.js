@@ -59,34 +59,59 @@ const navBuilder = () => {
 
 navBuilder();
 
-
-
-
-
-
-
-
-
-
 // Add class 'active' to section when near top of viewport
-// Add Active Class to current element
 
-// Get the container element
-// const navContainer = document.getElementById("navbar__list");
-// // Get all buttons with class="btn" inside the container
-// const sections = btnContainer.getElementsByClassName("section");
-// // Loop through the buttons and add the active class to the current/clicked button
-// for (const i = 0; i < sections.length; i++) {
-//     sections[i].addEventListener("click", function() {
-//         const current = document.getElementsByClassName("active");
-//         current[0].className = current[0].className.replace(" active", "");
-//         this.className += " active";
-//     });
-// }
+//getting the largest value that's less or equal to the number
+const offset = (section) => {
+    return Math.floor(section.getBoundingClientRect().top);
+};
+
+//remove the active class
+const removeActive = (section) => {
+    section.classList.remove('active');
+};
+
+//add the active class
+const addActive = (conditional, section) => {
+    if (conditional) {
+        section.classList.add('active');
+    };
+};
+
+//implementating the actual function
+
+const sectionActivation = () => {
+    // looping over all sections
+    sections.forEach(section => {
+        const elementOffset = offset(section);
+
+        inviewport = () => elementOffset < 150 && elementOffset >= -150;
+
+        removeActive(section);
+        addActive(inviewport(), section);
+    });
+};
+
+window.addEventListener('scroll', sectionActivation);
+
+
 
 // Scroll to anchor ID using scrollTO event
 
+const scrolling = () => {
+    //store var
+    const links = document.querySelectorAll('.navbar__menu a');
+    //for loop
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            for (i = 0; i < sections; i++) {
+                sections[i].addEventListener('click', sectionScroll(link));
+            }
+        });
+    });
+};
 
+scrolling();
 /**
  * End Main Functions
  * Begin Events
