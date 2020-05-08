@@ -96,7 +96,7 @@ window.addEventListener('scroll', sectionActivation);
 
 //Approach #1 for smooth scroll using element.scrollIntoView
 
-const scrolling = () => {
+const sectionscroll = () => {
     const links = document.querySelectorAll('.navbar__menu a');
     let index = 0;
     links.forEach(link => {
@@ -111,64 +111,10 @@ const scrolling = () => {
     })
 };
 
-scrolling();
-
-
-// // // APPROACH #2 - window.requestAnimationFrame()
-// function smoothScroll(event) {
-//     event.preventDefault();
-//     const targetId = event.currentTarget.getAttribute('.navbar__menu a');
-//     const targetPosition = document.querySelector(targetId).offsetTop;
-//     const startPosition = window.pageYOffset;
-//     const distance = targetPosition - startPosition;
-//     //store duration for later condition
-//     const duration = 10000;
-
-//     let start = null;
-
-//     window.requestAnimationFrame(step);
-
-//     function step(timestamp) {
-//         if (!start) start = timestamp;
-//         const progress = timestamp - start;
-//         //use scroll to (x, y), since we only do vertical scroll, the x=0;
-//         //liner easing
-//         // window.scrollTo(0, distance * (progress / duration) + startPosition);
-//         window.scrollTo(0, easeInOutCubic(progress, startPosition, distance, duration));
-//         if (progress < duration) window.requestAnimationFrame(step);
-//     }
-// }
-// //easing function from gizma.com
-// function easeInOutCubic(t, b, c, d) {
-//     t /= d / 2;
-//     if (t < 1) return c / 2 * t * t * t + b;
-//     t -= 2;
-//     return c / 2 * (t * t * t + 2) + b;
-// };
-
-// //Then Add event lisener
+sectionscroll();
 
 
 
-
-
-// Scroll to anchor ID using scrollTO event
-
-// const scrolling = () => {
-//     //store var
-//     const links = document.querySelectorAll('.navbar__menu a');
-
-//     //for loop
-//     links.forEach(link => {
-//         link.addEventListener('click', () => {
-//             for (i = 0; i < sections; i++) {
-//                 sections[i].addEventListener('click', sectionScroll(link));
-//             }
-//         })
-//     })
-// };
-
-// scrolling();
 /**
  * End Main Functions
  * Begin Events
