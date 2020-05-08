@@ -86,7 +86,6 @@ const sectionActivation = () => {
         const elementOffset = offset(section);
 
         inviewport = () => elementOffset < 150 && elementOffset >= -150;
-
         removeActive(section);
         addActive(inviewport(), section);
     });
@@ -95,23 +94,43 @@ const sectionActivation = () => {
 window.addEventListener('scroll', sectionActivation);
 
 
-
-// Scroll to anchor ID using scrollTO event
+//for smooth scroll
 
 const scrolling = () => {
-    //store var
     const links = document.querySelectorAll('.navbar__menu a');
-    //for loop
+    let index = 0;
     links.forEach(link => {
         link.addEventListener('click', () => {
-            for (i = 0; i < sections; i++) {
-                sections[i].addEventListener('click', sectionScroll(link));
-            }
-        });
-    });
+            index++;
+            sections.forEach((section, i) => {
+                if (i === index) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            })
+        })
+    })
 };
 
 scrolling();
+
+
+// Scroll to anchor ID using scrollTO event
+
+// const scrolling = () => {
+//     //store var
+//     const links = document.querySelectorAll('.navbar__menu a');
+
+//     //for loop
+//     links.forEach(link => {
+//         link.addEventListener('click', () => {
+//             for (i = 0; i < sections; i++) {
+//                 sections[i].addEventListener('click', sectionScroll(link));
+//             }
+//         })
+//     })
+// };
+
+// scrolling();
 /**
  * End Main Functions
  * Begin Events
