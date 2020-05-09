@@ -40,24 +40,35 @@ const sections = document.querySelectorAll('section');
 
 // build the nav
 
+// const navBuilder = () => {
+
+//     let navUI = '';
+//     // looping over all sections
+//     sections.forEach(section => {
+
+//         let sectionID = section.getAttribute("id");
+
+//         let sectionDataNav = section.getAttribute("data-nav");
+
+//         navUI += `<li><a class="menu__link" href="#${sectionID}">${sectionDataNav}</a></li>`;
+
+//     });
+//     // append all elements to the naviation
+//     navigation.innerHTML = navUI;
+// }
+
+// navBuilder();
+
+//simplified version
+
 const navBuilder = () => {
-
-    let navUI = '';
-    // looping over all sections
-    sections.forEach(section => {
-
-        let sectionID = section.getAttribute("id");
-
-        let sectionDataNav = section.getAttribute("data-nav");
-
-        navUI += `<li><a class="menu__link" href="#${sectionID}">${sectionDataNav}</a></li>`;
-
-    });
-    // append all elements to the naviation
-    navigation.innerHTML = navUI;
+    sections.forEach(section => navigation.innerHTML += `
+        <li><a class="menu__link" href="#${section.id}">${section.dataset.nav}</a></li>
+    `)
 }
-
 navBuilder();
+
+
 
 // Add class 'active' to section when near top of viewport
 
@@ -94,24 +105,22 @@ const sectionActivation = () => {
 window.addEventListener('scroll', sectionActivation);
 
 
-//Approach #1 for smooth scroll using element.scrollIntoView
+//smooth scroll using element.scrollIntoView
 
 const sectionscroll = () => {
-    const links = document.querySelectorAll('.navbar__menu a');
-    let index = 0;
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            index++;
-            sections.forEach((section, i) => {
-                if (i === index) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                }
-            })
-        })
+    // listen the click in navbar
+    // Prevent the default a tag action
+    document.getElementById('navbar__list').addEventListener('click', event => {
+        event.preventDefault()
+            // Make sure clicked the a tag.
+        if (event.target.tagName !== 'A') return
+            // Get target section's id from href attribute
+        const id = event.target.href.split('#')[1]
+            // Get the section by Id and scroll smoothly
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' })
     })
-};
-
-sectionscroll();
+}
+sectionscroll()
 
 
 
